@@ -25,7 +25,7 @@ app.use(cors({
   origin: [
     'http://localhost:3000', 'http://127.0.0.1:3000',   // local Next.js
     'http://localhost:5173', 'http://127.0.0.1:5173',   // local Vite (if any)
-    'https://<your-frontend>.vercel.app'                // your Vercel domain
+    'https://valorant-info-git-master-imanirvs-projects.vercel.app'                // your Vercel domain
     // or just use origin: '*' if everything is public and no cookies
   ],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
