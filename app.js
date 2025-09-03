@@ -10,6 +10,9 @@ var gameModesRouter = require('./routes/game-mode');
 var mapsRouter = require('./routes/maps');
 var weaponsRouter = require('./routes/weapons');
 const cors = require('cors');
+const helmet = require('helmet');
+
+
 var app = express();
 
 // view engine setup
@@ -19,12 +22,23 @@ app.set('view engine', 'jade');
 
 // allow all origins, simple & preflight
 app.use(cors({
-  origin: '*',
+  origin: [
+    'http://localhost:3000', 'http://127.0.0.1:3000',   // local Next.js
+    'http://localhost:5173', 'http://127.0.0.1:5173',   // local Vite (if any)
+    'https://<your-frontend>.vercel.app'                // your Vercel domain
+    // or just use origin: '*' if everything is public and no cookies
+  ],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: false, // set true ONLY if you use cookies/sessions
   maxAge: 86400,
 }));
 app.options('*', cors());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: false,
+}));
 
 app.use(logger('dev'));
 app.use(express.json());

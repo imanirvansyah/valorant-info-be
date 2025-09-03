@@ -1,0 +1,9 @@
+[build]
+  publish = "public"             # optional: serve /public as static
+  functions = "netlify/functions"
+
+# Keep your routes the same (/agents, /maps, etc.)
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server/:splat"
+  status = 200
