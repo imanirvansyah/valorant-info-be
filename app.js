@@ -9,12 +9,29 @@ var agentsRouter = require('./routes/agents');
 var gameModesRouter = require('./routes/game-mode');
 var mapsRouter = require('./routes/maps');
 var weaponsRouter = require('./routes/weapons');
-
+const cors = require('cors');
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+// app.use((req, res, next) => {
+//   const origin = req.headers.origin;
+//   const allowed = ['http://localhost:3000', 'http://127.0.0.1:3000'];
+//   if (allowed.includes(origin)) {
+//     res.header('Access-Control-Allow-Origin', origin);
+//     res.header('Vary', 'Origin'); // important for proxies/caches
+//   }
+//   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//   res.header('Access-Control-Allow-Credentials', 'true'); // if using cookies/auth
+//   if (req.method === 'OPTIONS') return res.sendStatus(204);
+//   next();
+// });
+
+
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(express.json());
