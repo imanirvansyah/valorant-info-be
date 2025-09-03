@@ -16,22 +16,15 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// app.use((req, res, next) => {
-//   const origin = req.headers.origin;
-//   const allowed = ['http://localhost:3000', 'http://127.0.0.1:3000'];
-//   if (allowed.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin', origin);
-//     res.header('Vary', 'Origin'); // important for proxies/caches
-//   }
-//   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
-//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//   res.header('Access-Control-Allow-Credentials', 'true'); // if using cookies/auth
-//   if (req.method === 'OPTIONS') return res.sendStatus(204);
-//   next();
-// });
 
-
-app.use(cors());
+// allow all origins, simple & preflight
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  maxAge: 86400,
+}));
+app.options('*', cors());
 
 app.use(logger('dev'));
 app.use(express.json());
